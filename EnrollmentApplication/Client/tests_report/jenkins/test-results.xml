@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome 50.0.2661 (Windows 10 0.0.0)" package="" timestamp="2016-05-04T02:43:16" id="0" hostname="nocturne" tests="9" errors="0" failures="0" time="0.053">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36"/>
+  </properties>
+  <testcase name="AuthService check should return true if localStorage contains user token" time="0.018" classname="AuthService"/>
+  <testcase name="AuthService check should navigate to Login if localStorage doesn't contain user token" time="0.008" classname="AuthService"/>
+  <testcase name="AuthService login method should store user token in localStorage and emit onIsLoggedInChanged event with 'true' if login is succeeded" time="0.009" classname="AuthService"/>
+  <testcase name="AuthService login method should not store user token in localStorage emit onIsLoggedInChanged event if login is failed" time="0.01" classname="AuthService"/>
+  <testcase name="AuthService login method should navigate to returnUrl if login is succeeded" time="0.002" classname="AuthService"/>
+  <testcase name="AuthService logout method should remove user token from localStorage and emit onIsLoggedInChanged event with 'true' if logout is succeeded" time="0.001" classname="AuthService"/>
+  <testcase name="AuthService logout method should not remove user token from localStorage and emit onIsLoggedInChanged event with 'true' if logout is faied" time="0.002" classname="AuthService"/>
+  <testcase name="AuthService logout method should navigate to Login if logout is succeeded" time="0.002" classname="AuthService"/>
+  <testcase name="isLoggedIn should return 'auth.check' result with url from 'to' parameter" time="0.001" classname="isLoggedIn"/>
+  <system-out>
+    <![CDATA[
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

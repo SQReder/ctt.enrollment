@@ -1,0 +1,3 @@
+﻿<li *isNotLoggedIn><a [routerLink]="['Login', { returnUrl: '/' }]">Login</a></li>
+<li *isNotLoggedIn><a [routerLink]="['Registration']">Sign Up</a></li>
+<li *isLoggedIn><a (click)="logout()">Logout</a></li>

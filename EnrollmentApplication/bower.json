@@ -1,0 +1,12 @@
+{
+  "name": "enrollment-application",
+  "private": true,
+  "dependencies": {
+    "uikit": "2.26.2",
+    "html5shiv": "3.7.3",
+    "respondJs": "1.4.2",
+    "signalr": "2.2.0",
+    "PACE": "pace#^1.0.2",
+    "jquery": "2.1.4"
+  }
+}
