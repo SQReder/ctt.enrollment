@@ -6,7 +6,7 @@ using Enrollment.EntityFramework;
 using Enrollment.EntityFramework.Identity;
 using Enrollment.EntityFramework.Identity.Model;
 using Enrollment.Model;
-using EnrollmentApplication.Infrastructure.Core.HttpResult;
+using EnrollmentApplication.Infrastructure.Http.Responces;
 using EnrollmentApplication.Infrastructure.Model;
 using EnrollmentApplication.Infrastructure.ViewModels;
 using Microsoft.AspNet.Authorization;

@@ -1,6 +1,6 @@
 using EnrollmentApplication.Infrastructure.ViewModels;
 
-namespace EnrollmentApplication.Infrastructure.Core.HttpResult
+namespace EnrollmentApplication.Infrastructure.Http.Responces
 {
     public class ListChildrenResult : GenericResult
     {

@@ -1,5 +1,5 @@
-﻿import { Component } from 'angular2/core'
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'
+﻿import { Component } from '@angular/core'
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated'
 import {LoginPanelComponent} from '../login/loginPanel.component'
 import {IsLoggedInDirective} from '../../shared/auth/isLoggedIn.directive'
 import {IsNotLoggedInDirective} from '../../shared/auth/isNotLoggedIn.directive'
@@ -8,10 +8,11 @@ import {LoginComponent} from '../login/login.component'
 import {RegistrationComponent} from '../login/registration.component'
 import {HomeComponent} from '../home/home.component'
 import {ProfileComponent} from '../profile/profile.component'
+import {EnrolleeComponent} from '../enrollee/enrollee.component';
 
 @Component({
     selector: 'app-component',
-    templateUrl: '/Home/AppLayout',
+    templateUrl: '/Home/AppLayout', 
     providers: [
         ROUTER_PROVIDERS
     ],
@@ -49,6 +50,11 @@ import {ProfileComponent} from '../profile/profile.component'
         name: 'Profile',
         component: ProfileComponent
     },
+    {
+        path: '/enrollee/...',
+        name: 'Enrollee',
+        component: EnrolleeComponent
+    }
 ])
 export class AppComponent {
 }

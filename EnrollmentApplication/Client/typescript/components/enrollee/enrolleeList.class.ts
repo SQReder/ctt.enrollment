@@ -1,11 +1,11 @@
-﻿import {Injectable, OnInit} from 'angular2/core'
+﻿import {Injectable, OnInit} from '@angular/core'
 import {ProfileService} from '../../shared/profile/profile.service';
-import {ChildItem} from './childItem.class';
+import {EnrolleeItem} from './enrolleeItem.class';
 import * as HttpResults from "../../shared/responses/httpResults";
 
 @Injectable()
-export class ChildList implements OnInit {
-    items: ChildItem[] = [];
+export class EnrolleeList implements OnInit {
+    items: EnrolleeItem[] = [];
 
     constructor(
         private profileService: ProfileService
@@ -15,7 +15,7 @@ export class ChildList implements OnInit {
     ngOnInit() {
         this.profileService
             .listChildren()
-            .subscribe((result: HttpResults.ListChildrenResult) => {
+            .subscribe((result: HttpResults.ListEnrolleeResult) => {
                 if (result.succeeded) {
                     this.items = result.children;
                 }

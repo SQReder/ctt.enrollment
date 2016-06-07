@@ -1,6 +1,6 @@
 ﻿'use strict';
-import {Component, provide} from 'angular2/core';
-import {Router, RouteConfig, RouteParams, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+import {Component, provide} from '@angular/core';
+import {Router, RouteConfig, RouteParams, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
 import {AuthService} from '../../shared/auth/auth.service'
 import {LoginComponent} from './login.component'

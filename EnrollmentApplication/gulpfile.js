@@ -68,18 +68,13 @@ paths.lib = [
     paths.bowerSrc + '/jquery/dist/jquery.min.js',
 ];
 
-paths.angular2 = [
-    paths.npmSrc + '/angular2/bundles/angular2-polyfills.js',
-    paths.npmSrc + '/systemjs/dist/system.src.js',
-    paths.npmSrc + '/systemjs/dist/system-polyfills.js',
-    paths.npmSrc + '/angular2/es6/dev/src/testing/shims_for_IE.js',
-    paths.npmSrc + '/rxjs/bundles/Rx.js',
-    paths.npmSrc + '/angular2/bundles/angular2.dev.js',
-    paths.npmSrc + '/es6-shim/es6-shim.min.js',
-    paths.npmSrc + '/angular2/bundles/testing.dev.js',
-    paths.npmSrc + '/angular2/bundles/testing.dev.js.map',
-    paths.npmSrc + '/angular2/bundles/router.dev.js',
-    paths.npmSrc + '/angular2/bundles/http.js'
+paths.angular2 = paths.angular2 = [
+    paths.npmSrc + "/@angular/**/*.js",
+    paths.npmSrc + "/es6-shim/es6-shim.min.js",
+    paths.npmSrc + "/zone.js/dist/zone.js",
+    paths.npmSrc + "/reflect-metadata/Reflect.js",
+    paths.npmSrc + "/systemjs/dist/system.src.js",
+    paths.npmSrc + "/core-js/client/shim.min.js"
 ];
 
 paths.rxjs = [
@@ -155,7 +150,7 @@ gulp.task('ts-compile', function () {
 });
 
 gulp.task('angular2', function () {
-    return gulp.src(paths.angular2).pipe(gulp.dest(paths.libTarget + '/angular2'));
+    return gulp.src(paths.angular2).pipe(gulp.dest(paths.libTarget + '/@angular'));
 });
 
 gulp.task('rxjs', function () {

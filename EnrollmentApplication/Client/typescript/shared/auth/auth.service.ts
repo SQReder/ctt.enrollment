@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-import {Injectable, Component, EventEmitter} from 'angular2/core';
-import {URLSearchParams} from 'angular2/http';
+import {Injectable, Component, EventEmitter} from '@angular/core';
+import {URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
-import { Router, RouterLink, ROUTER_PROVIDERS} from 'angular2/router';
-import { Http, Headers } from 'angular2/http';
+import { Router, RouterLink, ROUTER_PROVIDERS} from '@angular/router-deprecated';
+import { Http, Headers } from '@angular/http';
 import { contentHeaders } from '../requests/headers.const';
 import { requestParams } from '../requests/params.method';
 

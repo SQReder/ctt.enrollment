@@ -1,10 +1,10 @@
 ﻿<h2>Дети</h2>
 
 <div *ngIf="model">
-    <div *ngFor="#item of model">
+    <div *ngFor="let item of model">
         <enroll-profile-child-item [model]="item" (requestRemove)="onRequestRemove($event)"></enroll-profile-child-item>
     </div>
 
-    <a class="uk-button" (click)="newChild">Add child</a>
+    <a class="uk-button" (click)="newChild()">Add child</a>
 </div>
 <div *ngIf="!model">Loading...</div>

@@ -4,7 +4,7 @@
     Ward = 2, // Опекаемый
 }
 
-export interface ChildItemInterface {
+export interface EnrolleeItemInterface {
     id: string;
     relationshipDegree: RelationshipDegreeEnum;
     firstName: string;
@@ -17,7 +17,7 @@ export interface ChildItemInterface {
     birthCertificateGuid: string; // optional
 }
 
-export class ChildItem implements ChildItemInterface {
+export class EnrolleeItem implements EnrolleeItemInterface {
     id: string;
     relationshipDegree: RelationshipDegreeEnum;
     firstName: string;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EnrollmentApplication.Infrastructure.Core.HttpRequest
+namespace EnrollmentApplication.Infrastructure.Http.Requests
 {
     public class RegistrationRequest
     {

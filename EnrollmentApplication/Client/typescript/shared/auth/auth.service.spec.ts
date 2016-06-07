@@ -1,15 +1,15 @@
 /// <reference path="../../../../typings/main.d.ts"/>
 "use strict";
 
-import {describe, expect, beforeEach, it, inject, injectAsync, beforeEachProviders, MockApplicationRef} from "angular2/testing"
-import {provide, ApplicationRef} from 'angular2/core';
-import {PromiseWrapper} from 'angular2/src/facade/async';
-import {MockBackend} from 'angular2/http/testing';
-import {MockConnection} from 'angular2/src/http/backends/mock_backend';
+import {describe, expect, beforeEach, it, inject, injectAsync, beforeEachProviders, MockApplicationRef} from "@angular/core/testing"
+import {provide, ApplicationRef} from '@angular/core';
+import {MockBackend} from '@angular/http/testing';
+import {MockConnection} from '@angular/http/testing';
 
-import {Router, ROUTER_PROVIDERS, ROUTER_PRIMARY_COMPONENT, HashLocationStrategy, LocationStrategy} from 'angular2/router';
+import {Router, ROUTER_PROVIDERS, ROUTER_PRIMARY_COMPONENT} from '@angular/router-deprecated';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
-import {HTTP_PROVIDERS, XHRBackend, Response, ResponseOptions} from 'angular2/http';
+import {HTTP_PROVIDERS, XHRBackend, Response, ResponseOptions} from '@angular/http';
 
 import {contentHeaders} from '../requests/headers.const';
 import {requestParams} from '../requests/params.method';

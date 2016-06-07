@@ -1,4 +1,4 @@
-import {Directive, ViewContainerRef, TemplateRef} from 'angular2/core';
+import {Directive, ViewContainerRef, TemplateRef} from '@angular/core';
 import {AuthService} from "./auth.service"
 
 @Directive({
@@ -9,7 +9,7 @@ export class IsNotLoggedInDirective {
 
     constructor(
         private viewContainer: ViewContainerRef,
-        private templateRef: TemplateRef,
+        private templateRef: TemplateRef<IsNotLoggedInDirective>,
         private authService: AuthService
     ) {
 

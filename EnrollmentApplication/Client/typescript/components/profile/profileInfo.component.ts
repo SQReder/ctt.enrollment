@@ -1,4 +1,4 @@
-﻿import {Component, Input, Output, OnInit} from 'angular2/core'
+﻿import {Component, Input, Output, OnInit} from '@angular/core'
 import {ProfileInfo} from './profileInfo.class';
 
 @Component({

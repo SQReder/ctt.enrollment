@@ -1,20 +1,20 @@
-﻿import {Component, Input, Output, EventEmitter} from 'angular2/core'
-import {CORE_DIRECTIVES} from 'angular2/common'
+﻿import {Component, Input, Output, EventEmitter} from '@angular/core'
+import {CORE_DIRECTIVES} from '@angular/common'
 import {ProfileService} from '../../shared/profile/profile.service'
-import {ChildList} from './childList.class';
-import {ChildItem} from './childItem.class';
-import {ChildItemComponent} from "./childItem.component";
+import {EnrolleeList} from './enrolleeList.class';
+import {EnrolleeItem} from './enrolleeItem.class';
+import {EnrolleeItemComponent} from "./enrolleeItem.component";
 
 @Component({
     selector: 'enroll-profile-children',
     templateUrl: '/Profile/ChildListLayout',
     directives: [
         CORE_DIRECTIVES,
-        ChildItemComponent
+        EnrolleeItemComponent
     ]
 })
-export class ChildListComponent {
-    @Input() model: ChildItem[];
+export class EnrolleeListComponent {
+    @Input() model: EnrolleeItem[];
     @Output() requestRemove = new EventEmitter<string>();
 
     constructor(

@@ -1,7 +1,7 @@
-import {Injector} from 'angular2/core'
+import {Injector} from '@angular/core'
 import {AuthService} from './auth.service';
 import {appInjector} from '../../app.injector';
-import {ComponentInstruction} from 'angular2/router';
+import {ComponentInstruction} from '@angular/router-deprecated';
 
 export const isLoggedIn = (
     to: ComponentInstruction,

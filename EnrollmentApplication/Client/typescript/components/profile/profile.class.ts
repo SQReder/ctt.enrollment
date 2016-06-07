@@ -1,17 +1,17 @@
-﻿import {ChildItem} from './childItem.class';
+﻿import {EnrolleeItem} from '../enrollee/enrolleeItem.class';
 import {ProfileInfo} from './profileInfo.class';
 import * as HttpResults from '../../shared/responses/httpResults';
 
 export class Profile {
     info: ProfileInfo;
-    children: ChildItem[];
+    children: EnrolleeItem[];
 
     onProfileInfoLoaded(result: HttpResults.ProfileInfoResult) {
         console.log(result);
         this.info = result.user;
     }
 
-    onListChildrenLoaded(result: HttpResults.ListChildrenResult) {
+    onListEnrolleeLoaded(result: HttpResults.ListEnrolleeResult) {
         console.log(result);
         this.children = result.children;
     }

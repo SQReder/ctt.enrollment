@@ -1,13 +1,13 @@
-﻿import {Component, Input, Output, EventEmitter} from 'angular2/core'
-import {FormBuilder, Control, ControlGroup} from 'angular2/common'
-import {ChildItem} from './childItem.class';
+﻿import {Component, Input, Output, EventEmitter} from '@angular/core'
+import {FormBuilder, Control, ControlGroup} from '@angular/common'
+import {EnrolleeItem} from './enrolleeItem.class';
 
 @Component({
     selector: 'enroll-profile-child-item',
     templateUrl: '/Profile/ChildItemLayout',
 })
-export class ChildItemComponent {
-    @Input() model: ChildItem;
+export class EnrolleeItemComponent {
+    @Input() model: EnrolleeItem;
     @Output() requestRemove = new EventEmitter<string>();
 
     editMode = false;

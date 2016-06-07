@@ -1,13 +1,13 @@
-﻿import {Component, Input, Output, EventEmitter} from 'angular2/core'
-import {ChildItem} from './childItem.class';
+﻿import {Component, Input, Output, EventEmitter} from '@angular/core'
+import {EnrolleeItem} from './enrolleeItem.class';
 
 @Component({
     selector: 'enroll-profile-childitem-editor',
     templateUrl: '/Profile/ChildItemEditorLayout'
 })
 export class ChildItemEditor {
-    @Input() model: ChildItem;
-    @Output() submit: EventEmitter<ChildItem>;
+    @Input() model: EnrolleeItem;
+    @Output() submit: EventEmitter<EnrolleeItem>;
 
     constructor(
     ) {         

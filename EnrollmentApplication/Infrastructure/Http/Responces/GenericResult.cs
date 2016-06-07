@@ -1,4 +1,4 @@
-﻿namespace EnrollmentApplication.Infrastructure.Core.HttpResult
+﻿namespace EnrollmentApplication.Infrastructure.Http.Responces
 {
     public class GenericResult
     {

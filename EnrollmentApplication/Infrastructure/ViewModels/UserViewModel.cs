@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Enrollment.EntityFramework.Identity;
 using Enrollment.EntityFramework.Identity.Model;
 using Microsoft.AspNet.Identity;
 

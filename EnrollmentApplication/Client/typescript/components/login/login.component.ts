@@ -1,7 +1,7 @@
 ﻿'use strict';
-import {Component, provide} from 'angular2/core';
-import {FormBuilder, ControlGroup, Control, Validators} from 'angular2/common';
-import {Router, RouteParams, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, CanActivate} from 'angular2/router';
+import {Component, provide} from '@angular/core';
+import {FormBuilder, ControlGroup, Control, Validators} from '@angular/common';
+import {Router, RouteParams, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, CanActivate} from '@angular/router-deprecated';
 import {AuthService} from '../../shared/auth/auth.service'
 
 @Component({

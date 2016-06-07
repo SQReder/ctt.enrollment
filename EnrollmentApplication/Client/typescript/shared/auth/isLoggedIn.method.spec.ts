@@ -1,6 +1,6 @@
 /// <reference path="../../../../typings/main.d.ts"/>
 import {appInjector} from '../../app.injector';
-import {ComponentInstruction} from 'angular2/router';
+import {ComponentInstruction} from '@angular/router-deprecated';
 import {isLoggedIn} from './isLoggedIn.method';
 
 describe('isLoggedIn', () => {
@@ -13,7 +13,7 @@ describe('isLoggedIn', () => {
 
         appInjector(injector);
 
-        var to = new ComponentInstruction();
+        const to: any = jasmine.createSpy('ComponentInstruction');
         to.urlPath = '/connection';
 
         var result = isLoggedIn(to, null);
