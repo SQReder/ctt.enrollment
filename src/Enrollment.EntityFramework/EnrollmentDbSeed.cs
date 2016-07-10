@@ -27,7 +27,7 @@ namespace Enrollment.EntityFramework
                     MiddleName = "Васильевич",
                     LastName = "Пупкин",
                     AddressSameAsParent = true,
-                    RelationshipDegree = RelationshipDegreeEnum.Child,
+                    RelationType = RelationTypeEnum.Child,
                     Address = context.Addresses.First(x => x.Id == addressGuid),
                     StudyGrade = "123?",
                 });

@@ -249,3 +249,4 @@ bower_components
 **/wwwroot/app/*
 **/wwwroot/css/*
 **/typings/*
+/src/EnrollmentApplication/Client/typescript/shared

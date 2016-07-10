@@ -6,7 +6,7 @@ namespace Enrollment.Model
     {
         public Guid Id { get; set; }
 
-        public RelationshipDegreeEnum RelationshipDegree { get; set; }
+        public RelationTypeEnum RelationType { get; set; }
 
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
