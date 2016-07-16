@@ -14,6 +14,7 @@ import {AuthService} from "./shared/auth/auth.service";
 import {ProfileService} from "./shared/profile/profile.service";
 import {EnrolleeService} from "./shared/enrollee/enrollee.service";
 import {BaseService} from "./shared/enrollee/BaseService";
+import {TrusteeService} from "./shared/trustee/trustee.service";
 
 declare var appOptions: any;
 
@@ -23,6 +24,7 @@ bootstrap(
         BaseService,
         AuthService, 
         ProfileService,
+        TrusteeService,
         EnrolleeService,
         ROUTER_PROVIDERS,
         HTTP_PROVIDERS,

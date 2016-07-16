@@ -1,17 +1,17 @@
 ﻿import {Enrollee} from "../enrollee/enrollee.class";
-import {ProfileInfo} from "./profileInfo.class";
+import {TrusteeInfo} from "./TrusteeInfo.class";
 import * as HttpResults from "../../shared/responses/httpResults";
 
 export class Profile {
-    info: ProfileInfo;
+    info: TrusteeInfo;
     enrollees: Enrollee[];
 
-    onProfileInfoLoaded(result: HttpResults.ProfileInfoResult) {
+    onProfileInfoLoaded(result: HttpResults.ITrusteeInfoResult) {
         console.log(result);
-        this.info = result.user;
+        this.info = result.trustee;
     }
 
-    onListEnrolleeLoaded(result: HttpResults.ListEnrolleeResult) {
+    onListEnrolleeLoaded(result: HttpResults.IListEnrolleeResult) {
         console.log(result);
         this.enrollees = result.enrollees;
     }

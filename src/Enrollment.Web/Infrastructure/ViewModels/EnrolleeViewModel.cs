@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Enrollment.Model;
-using Enrollment.Web.Model;
 
 namespace Enrollment.Web.Infrastructure.ViewModels
 {

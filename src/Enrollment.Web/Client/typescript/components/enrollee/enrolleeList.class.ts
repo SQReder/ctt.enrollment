@@ -15,7 +15,7 @@ export class EnrolleeList implements OnInit {
     ngOnInit() {
         this.enrolleeService
             .listEnrollee()
-            .subscribe((result: HttpResults.ListEnrolleeResult) => {
+            .subscribe((result: HttpResults.IListEnrolleeResult) => {
                 if (result.succeeded) {
                     this.items = result.enrollees;
                 }

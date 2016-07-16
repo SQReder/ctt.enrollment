@@ -16,16 +16,16 @@ export class EnrolleeService extends Service.BaseService {
         super(http);
     }
 
-    listEnrollee(): Observable<HttpResults.ListEnrolleeResult> {
+    listEnrollee(): Observable<HttpResults.IListEnrolleeResult> {
         return this.observableGet("/Enrollee/ListEnrollee");
     }
 
-    getEnrollee(id: string): Observable<HttpResults.GetEnrolleeResult> {
+    getEnrollee(id: string): Observable<HttpResults.IGetEnrolleeResult> {
         if (id == null) {
             id = "";
         }
 
-        return this.observableGet("/Enrollee/Get/" + id);
+        return this.observableGet(`/Enrollee/Get/${id}`);
     }
 
     saveEnrollee(model: Enrollee): void {

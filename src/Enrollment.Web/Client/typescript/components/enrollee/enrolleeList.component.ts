@@ -28,7 +28,7 @@ export class EnrolleeListComponent implements OnInit {
     ngOnInit() {
         this.enrolleeService
             .listEnrollee()
-            .subscribe((result: HttpResults.ListEnrolleeResult) => {
+            .subscribe((result: HttpResults.IListEnrolleeResult) => {
                 console.log(result);
                 this.model = result.enrollees;
             });

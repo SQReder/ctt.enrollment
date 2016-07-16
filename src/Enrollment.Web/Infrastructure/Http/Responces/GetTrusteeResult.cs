@@ -1,4 +1,6 @@
-﻿using Enrollment.Web.Infrastructure.ViewModels;
+﻿using AutoMapper;
+using Enrollment.Model;
+using Enrollment.Web.Infrastructure.ViewModels;
 
 namespace Enrollment.Web.Infrastructure.Http.Responces
 {
@@ -6,9 +8,9 @@ namespace Enrollment.Web.Infrastructure.Http.Responces
     {
         public TrusteeViewModel Trustee { get; set; }
 
-        public GetTrusteeResult(TrusteeViewModel trustee)
+        public GetTrusteeResult(Trustee trustee)
         {
-            Trustee = trustee;
+            Trustee = Mapper.Map<TrusteeViewModel>(trustee);
         }
     }
 }

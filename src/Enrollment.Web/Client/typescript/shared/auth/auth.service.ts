@@ -11,7 +11,7 @@ import { requestParams } from "../requests/params.method";
 
 import {User} from "./user.class";
 import {RegistrationModel} from "./registrationModel.class";
-import {GenericResult} from "../responses/httpResults";
+import {IGenericResult} from "../responses/httpResults";
 import {LoginModel} from "./LoginModel";
 import {BaseService} from "../enrollee/BaseService";
 
@@ -90,7 +90,7 @@ export class AuthService extends BaseService {
         );
     }
 
-    register(model: RegistrationModel): Observable<GenericResult> {
+    register(model: RegistrationModel): Observable<IGenericResult> {
         const headers = contentHeaders;
         const params = requestParams();
         for (let key in model) {

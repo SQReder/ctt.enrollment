@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Enrollment.Model;
 using Enrollment.Web.Database;
 using Enrollment.Web.Infrastructure.Http.Responces;
 using Enrollment.Web.Infrastructure.ViewModels;
-using Enrollment.Web.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +14,9 @@ namespace Enrollment.Web.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly EnrollmentDbContext _dataContext;
+        private readonly ApplicationDbContext _dataContext;
 
-        public ProfileController(UserManager<ApplicationUser> userManager, EnrollmentDbContext dataContext)
+        public ProfileController(UserManager<ApplicationUser> userManager, ApplicationDbContext dataContext)
         {
             _userManager = userManager;
             _dataContext = dataContext;

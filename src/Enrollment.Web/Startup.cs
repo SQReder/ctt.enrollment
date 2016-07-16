@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Enrollment.Model;
 using Enrollment.Web.Database;
 using Enrollment.Web.Infrastructure.ViewModels;
-using Enrollment.Web.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -33,18 +33,13 @@ namespace Enrollment.Web
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EnrollmentDbContext>(options =>
-            {
-                var connectionString = Configuration.GetConnectionString("DefaultConnection");
-                options.UseSqlServer(connectionString);
-            });
-            services.AddDbContext<AppIdentityDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
                 var connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(o =>
+            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(o =>
             {
                 o.Password.RequireDigit = false;
                 o.Password.RequireLowercase = false;
@@ -52,7 +47,7 @@ namespace Enrollment.Web
                 o.Password.RequireNonAlphanumeric = true;
                 o.Password.RequiredLength = 8;
             })
-                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddEntityFrameworkStores<ApplicationDbContext, Guid>()
                 .AddDefaultTokenProviders();
             ;
 
@@ -73,9 +68,8 @@ namespace Enrollment.Web
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                serviceScope.ServiceProvider.GetRequiredService<EnrollmentDbContext>().Database.Migrate();
-                serviceScope.ServiceProvider.GetRequiredService<AppIdentityDbContext>().Database.Migrate();
-                EnrollmentDbSeed.Initialize(serviceScope.ServiceProvider);
+                serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+                ApplicationDbSeed.Initialize(serviceScope.ServiceProvider);
             }
 
             app.UseStaticFiles();
@@ -111,6 +105,7 @@ namespace Enrollment.Web
             {
                 config.CreateMap<Enrollee, EnrolleeViewModel>();
                 config.CreateMap<Address, AddressViewModel>();
+                config.CreateMap<Trustee, TrusteeViewModel>();
             });
         }
     }

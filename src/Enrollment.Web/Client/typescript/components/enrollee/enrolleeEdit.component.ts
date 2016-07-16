@@ -1,9 +1,10 @@
 ﻿import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core"
-import {Enrollee} from "./enrollee.class";
+import {Enrollee, Address } from "./enrollee.class";
 import {RelationTypeStringPipe, RelationTypeEnum} from "./relationType.enum"
 
 import {EnrolleeService} from "../../shared/enrollee/enrollee.service";
 import {RouteParams, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {TrusteeService} from "../../shared/trustee/trustee.service";
 
 @Component({
     selector: "enroll-enrollee-edit",
@@ -15,6 +16,7 @@ import {RouteParams, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 })
 export class EnrolleeEditComponent implements OnInit {
     model = new Enrollee();
+    trusteeAddress = new Address();
     submitted = false;
 
     initialized: boolean;
@@ -27,11 +29,12 @@ export class EnrolleeEditComponent implements OnInit {
 
     onSubmit() { this.submitted = true; }
     // TODO: Remove this when we're done
-    get diagnostic() { return JSON.stringify(this.model); }
+    get diagnostic() { return JSON.stringify(this.model) + JSON.stringify(this.trusteeAddress); }
 
     constructor(
         private routeParams: RouteParams,
-        private service: EnrolleeService
+        private service: EnrolleeService,
+        private trusteeService: TrusteeService
     ) {
     }
 
@@ -49,6 +52,11 @@ export class EnrolleeEditComponent implements OnInit {
         } else {
             this.applyModel(new Enrollee());
         }
+
+        this.trusteeService.getCurrentTrusteeAddress()
+            .subscribe(result => {
+                this.trusteeAddress = result.address;
+            });
     }
 
     applyModel(model: Enrollee) {

@@ -1,6 +1,5 @@
 ﻿using Enrollment.DataAccess;
 using Enrollment.Model;
-using Enrollment.Web.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Enrollment.Web.Database

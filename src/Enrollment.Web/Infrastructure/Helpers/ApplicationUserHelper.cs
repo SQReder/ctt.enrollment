@@ -1,4 +1,4 @@
-﻿using Enrollment.Web.Model;
+﻿using Enrollment.Model;
 
 namespace Enrollment.Web.Infrastructure.Helpers
 {

@@ -6,7 +6,6 @@ using Enrollment.Model;
 using Enrollment.Web.Database;
 using Enrollment.Web.Infrastructure.Http.Responces;
 using Enrollment.Web.Infrastructure.ViewModels;
-using Enrollment.Web.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +13,9 @@ namespace Enrollment.Web.Controllers
 {
     public class EnrolleeController: Controller
     {
-        private readonly EnrollmentDbContext _dataContext;
+        private readonly ApplicationDbContext _dataContext;
 
-        public EnrolleeController(EnrollmentDbContext dataContext)
+        public EnrolleeController(ApplicationDbContext dataContext)
         {
             _dataContext = dataContext;
         }

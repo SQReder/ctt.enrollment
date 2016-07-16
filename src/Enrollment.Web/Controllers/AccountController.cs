@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Enrollment.DataAccess;
+using Enrollment.Model;
+using Enrollment.Web.Database;
 using Enrollment.Web.Infrastructure.Exceptions;
 using Enrollment.Web.Infrastructure.Helpers;
 using Enrollment.Web.Infrastructure.Http.Requests;
 using Enrollment.Web.Infrastructure.Http.Responces;
-using Enrollment.Web.Model;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,14 +22,17 @@ namespace Enrollment.Web.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _dbContext;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext dbContext
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
@@ -126,10 +131,7 @@ namespace Enrollment.Web.Controllers
                 {
                     var user = new ApplicationUser
                     {
-                        Id = Guid.NewGuid().ToString("N"),
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        MiddleName = model.MiddleName,
+                        Id = Guid.NewGuid(),
                         Email = model.Email,
                         PhoneNumber = model.Phone,
                         UserName = model.Phone.Replace("+", "").Trim(),
@@ -139,20 +141,11 @@ namespace Enrollment.Web.Controllers
                     var result = await _userManager.CreateAsync(user, ApplicationUserHelper.GeneratePassword(user));
                     if (result.Succeeded)
                     {
-                        var claims = new[]
-                        {
-                            new Claim("address", model.Address),
-                            new Claim("job", model.Job),
-                            new Claim("jobPosition", model.JobPosition),
-                        };
+                        var trustee = CreateTrusteeForUser(model, user);
 
-                        var identityResult = await _userManager.AddClaimsAsync(user, claims);
-                        if (!identityResult.Succeeded)
-                        {
-                            var message = identityResult.Errors.Select(x => $"{x.Code} {x.Description}").Aggregate((a,b) =>
-                                $"{a}\n{b}");
-                            throw new Exception(message);
-                        }
+                        var repository = _dbContext.Repository<Trustee>();
+                        repository.Add(trustee);
+                        await _dbContext.SaveChangesAsync();
 
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         registrationResult = new SuccessResult();
@@ -179,6 +172,25 @@ namespace Enrollment.Web.Controllers
             }
 
             return new ObjectResult(registrationResult);
+        }
+
+        private Trustee CreateTrusteeForUser(RegistrationRequest model, ApplicationUser user)
+        {
+            var trustee = new Trustee
+            {
+                Owner = user,
+                FirstName = model.FirstName,
+                MiddleName = model.MiddleName,
+                LastName = model.LastName,
+                Id = Guid.NewGuid(),
+                Email = model.Email,
+                Job = model.Job,
+                JobPosition = model.JobPosition,
+                Address = new Address {Id = Guid.NewGuid(), Raw = model.Address},
+                PhoneNumber = model.Phone
+            };
+
+            return trustee;
         }
     }
 }
