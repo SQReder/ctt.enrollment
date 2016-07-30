@@ -21,3 +21,7 @@ export interface IGetEnrolleeResult extends IGenericResult {
 export interface ITrusteeAddressResult extends IGenericResult {
     address: IAddress
 }
+
+export interface IGuidResult extends IGenericResult {
+    guid: string;
+}

@@ -25,13 +25,24 @@ export class EnrolleeService extends Service.BaseService {
             id = "";
         }
 
-        return this.observableGet(`/Enrollee/Get/${id}`);
+        return this.observableGet <HttpResults.IGetEnrolleeResult>(`/Enrollee/Get/${id}`);
     }
 
-    saveEnrollee(model: Enrollee): void {
-        const params = requestParams();
-        params.set("model", JSON.stringify(model));
+    saveEnrollee(model: Enrollee): Observable<HttpResults.IGuidResult> {
+        function capitalizeFirstLetter(string: string): string {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
 
-        this.observablePost("/Enrollee/Edit", params);
+        const params = requestParams();
+        //params.set("model", JSON.stringify(model));
+
+        for (let key in model) {
+            if (!model.hasOwnProperty(key))
+                continue;
+
+            params.set(key, model[key]);
+        }
+
+        return this.observablePost<HttpResults.IGuidResult>("/Enrollee/Edit", params);
     }
 }

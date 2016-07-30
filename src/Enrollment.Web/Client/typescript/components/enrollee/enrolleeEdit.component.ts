@@ -5,6 +5,7 @@ import {RelationTypeStringPipe, RelationTypeEnum} from "./relationType.enum"
 import {EnrolleeService} from "../../shared/enrollee/enrollee.service";
 import {RouteParams, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {TrusteeService} from "../../shared/trustee/trustee.service";
+import {IGuidResult, ITrusteeAddressResult, IGetEnrolleeResult} from "../../shared/responses/httpResults"
 
 @Component({
     selector: "enroll-enrollee-edit",
@@ -42,7 +43,7 @@ export class EnrolleeEditComponent implements OnInit {
         const id = this.routeParams.get("id");
         if (id !== undefined) {
             this.service.getEnrollee(id)
-                .subscribe(result => {
+                .subscribe((result: IGetEnrolleeResult) => {
                     let enrollee = result.enrollee;
                     if (enrollee == null)
                         enrollee = new Enrollee();
@@ -54,7 +55,7 @@ export class EnrolleeEditComponent implements OnInit {
         }
 
         this.trusteeService.getCurrentTrusteeAddress()
-            .subscribe(result => {
+            .subscribe((result: ITrusteeAddressResult) => {
                 this.trusteeAddress = result.address;
             });
     }
@@ -65,6 +66,9 @@ export class EnrolleeEditComponent implements OnInit {
     }
 
     doSave() {
-        this.service.saveEnrollee(this.model);
+        this.service.saveEnrollee(this.model)
+            .subscribe((result: IGuidResult) => {
+                alert(result);
+            });
     }
 }

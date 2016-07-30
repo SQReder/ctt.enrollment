@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Enrollment.DataAccess;
@@ -7,11 +9,12 @@ using Enrollment.Web.Database;
 using Enrollment.Web.Infrastructure.Http.Responces;
 using Enrollment.Web.Infrastructure.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Semantics;
 using Microsoft.EntityFrameworkCore;
 
 namespace Enrollment.Web.Controllers
 {
-    public class EnrolleeController: Controller
+    public class EnrolleeController : Controller
     {
         private readonly ApplicationDbContext _dataContext;
 
@@ -104,6 +107,50 @@ namespace Enrollment.Web.Controllers
             {
                 result = new ErrorResult(e);
             }
+            return new ObjectResult(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EnrolleeViewModel model)
+        {
+            GenericResult result;
+
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    throw new ValidationException();
+                }
+
+                var repository = _dataContext.EnrolleeRepository;
+
+                Enrollee enrollee;
+
+                var id = model.Id;
+                if (id.HasValue)
+                {
+                    enrollee = repository
+                        .AsQueryable()
+                        .Include(x => x.Address)
+                        .FirstOrDefault(x => x.Id == id.Value);
+                }
+                else
+                {
+                    enrollee = Mapper.Map<Enrollee>(model);
+                    enrollee.Id = Guid.NewGuid();
+                }
+
+                repository.Add(enrollee);
+
+                await _dataContext.SaveChangesAsync();
+
+                result = new GuidResult(enrollee.Id);
+            }
+            catch (Exception e)
+            {
+                result = new ErrorResult(e);
+            }
+
             return new ObjectResult(result);
         }
     }
