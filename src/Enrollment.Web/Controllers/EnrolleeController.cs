@@ -8,19 +8,18 @@ using Enrollment.Model;
 using Enrollment.Web.Database;
 using Enrollment.Web.Infrastructure.Http.Responces;
 using Enrollment.Web.Infrastructure.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Semantics;
 using Microsoft.EntityFrameworkCore;
 
 namespace Enrollment.Web.Controllers
 {
-    public class EnrolleeController : Controller
+    public class EnrolleeController : BaseController
     {
-        private readonly ApplicationDbContext _dataContext;
-
-        public EnrolleeController(ApplicationDbContext dataContext)
+        public EnrolleeController(ApplicationDbContext dataContext, UserManager<ApplicationUser> userManager)
+            : base(dataContext, userManager)
         {
-            _dataContext = dataContext;
         }
 
         public IActionResult Layout() => View();
@@ -29,23 +28,21 @@ namespace Enrollment.Web.Controllers
         public IActionResult ViewLayout() => View();
 
         [HttpGet]
-        public IActionResult ListEnrollee()
+        public async Task<IActionResult> ListEnrollee()
         {
             GenericResult result;
             try
             {
-                var viewModels = new[]
-                {
-                    new EnrolleeViewModel
-                    {
-                        Id = new Guid("ff668380-3842-4b29-9672-5dc7e82d9905"),
-                        FirstName = "Никита",
-                        MiddleName = "Васильевич",
-                        LastName = "Пупкин",
-                        AddressSameAsParent = true,
-                        RelationType = RelationTypeEnum.Child,
-                    },
-                };
+                var user = await GetCurrentUserAsync();
+                var trusteeGuid = user.Id;
+
+                var repository = DataContext.Repository<Enrollee>();
+                var trustee = await DataContext
+                    .Repository<Trustee>()
+                    .AsNoTracking()
+                    .Include(x => x.Applicants)
+                    .FirstOrDefaultAsync(x => x.OwnerID == user.Id);
+                var viewModels = Mapper.Map<EnrolleeViewModel[]>(trustee.Applicants);
                 result = new ListEnrolleesResult(viewModels);
             }
             catch (Exception e)
@@ -62,7 +59,7 @@ namespace Enrollment.Web.Controllers
             GenericResult result;
             try
             {
-                var repository = _dataContext.Repository<Enrollee>();
+                var repository = DataContext.Repository<Enrollee>();
                 var enrollee = repository.Add(new Enrollee
                 {
                     Id = Guid.NewGuid(),
@@ -72,7 +69,7 @@ namespace Enrollment.Web.Controllers
                     AddressSameAsParent = true,
                     RelationType = RelationTypeEnum.Child,
                 });
-                await _dataContext.SaveChangesAsync();
+                await DataContext.SaveChangesAsync();
                 result = new SuccessResult();
             }
             catch (Exception e)
@@ -83,12 +80,13 @@ namespace Enrollment.Web.Controllers
             return new ObjectResult(result);
         }
 
+
         public async Task<IActionResult> Get(Guid id)
         {
             GenericResult result;
             try
             {
-                var repository = _dataContext.EnrolleeRepository;
+                var repository = DataContext.EnrolleeRepository;
                 var enrollee = await repository.AsNoTracking()
                     .Include<Enrollee, Address>(x => x.Address)
                     .FirstOrDefaultAsync(e => e.Id == id);
@@ -111,6 +109,7 @@ namespace Enrollment.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EnrolleeViewModel model)
         {
             GenericResult result;
@@ -122,7 +121,7 @@ namespace Enrollment.Web.Controllers
                     throw new ValidationException();
                 }
 
-                var repository = _dataContext.EnrolleeRepository;
+                var repository = DataContext.EnrolleeRepository;
 
                 Enrollee enrollee;
 
@@ -133,22 +132,68 @@ namespace Enrollment.Web.Controllers
                         .AsQueryable()
                         .Include(x => x.Address)
                         .FirstOrDefault(x => x.Id == id.Value);
+
+                    Mapper.Map(model, enrollee);
                 }
                 else
                 {
+                    var userID = GetCurrentUserId();
+                    var trustee = DataContext
+                        .Repository<Trustee>()
+                        .Include(x => x.Applicants)
+                        .First(x => x.OwnerID == userID);
+
                     enrollee = Mapper.Map<Enrollee>(model);
                     enrollee.Id = Guid.NewGuid();
+
+                    trustee.Applicants.Add(enrollee);
+
+                    //repository.Add(enrollee);
                 }
 
-                repository.Add(enrollee);
 
-                await _dataContext.SaveChangesAsync();
+                await DataContext.SaveChangesAsync();
 
                 result = new GuidResult(enrollee.Id);
             }
             catch (Exception e)
             {
                 result = new ErrorResult(e);
+            }
+
+            return new ObjectResult(result);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            GenericResult result;
+                    
+            try
+            {
+                var userID = GetCurrentUserId();
+                var trustee = DataContext
+                    .Repository<Trustee>()
+                    .Include(x => x.Applicants)
+                    .First(x => x.OwnerID == userID);
+
+
+                var toDelete = trustee.Applicants.FirstOrDefault(x => x.Id == id);
+
+                if (toDelete != null)
+                {
+                    trustee.Applicants.Remove(toDelete);
+                }
+
+                await DataContext.SaveChangesAsync();
+
+                result = new SuccessResult();
+            }
+            catch (Exception e)
+            {
+                result = new ErrorResult(e);
+                throw;
             }
 
             return new ObjectResult(result);

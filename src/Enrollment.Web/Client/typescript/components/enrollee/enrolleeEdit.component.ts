@@ -68,7 +68,7 @@ export class EnrolleeEditComponent implements OnInit {
     doSave() {
         this.service.saveEnrollee(this.model)
             .subscribe((result: IGuidResult) => {
-                alert(result);
+                console.log(result);
             });
     }
 }

@@ -11,16 +11,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Enrollment.Web.Controllers
 {
-    public class TrusteeController : Controller
+    public class TrusteeController : BaseController
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IRepository<Trustee> _repository;
 
         public TrusteeController(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
+            :base(dbContext, userManager)
         {
             _dbContext = dbContext;
-            _userManager = userManager;
             _repository = _dbContext.Repository<Trustee>();
         }
 
@@ -87,11 +86,5 @@ namespace Enrollment.Web.Controllers
 
             return new ObjectResult(result);
         }
-
-        private async Task<ApplicationUser> GetCurrentUserAsync()
-        {
-            return await _userManager.FindByIdAsync(_userManager.GetUserId(HttpContext.User));
-        }
-
     }
 }

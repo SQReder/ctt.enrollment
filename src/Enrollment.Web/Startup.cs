@@ -25,7 +25,7 @@ namespace Enrollment.Web
             builder.SetBasePath(env.ContentRootPath);
             builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
             builder.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-            
+
             Configuration = builder.Build();
         }
 
@@ -103,7 +103,14 @@ namespace Enrollment.Web
 
             Mapper.Initialize(config =>
             {
-                config.CreateMap<Enrollee, EnrolleeViewModel>();
+                config.CreateMap<Enrollee, EnrolleeViewModel>()
+                    .ForMember(
+                        dest => dest.Address,
+                        opts => opts.MapFrom(src => src.Address.Raw));
+                config.CreateMap<EnrolleeViewModel, Enrollee>()
+                    .ForMember(
+                        dest => dest.Address,
+                        opts => opts.MapFrom(src => new Address { Raw = src.Address }));
                 config.CreateMap<Address, AddressViewModel>();
                 config.CreateMap<Trustee, TrusteeViewModel>();
             });

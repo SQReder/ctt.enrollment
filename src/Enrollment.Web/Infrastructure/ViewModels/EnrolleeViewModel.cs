@@ -14,13 +14,13 @@ namespace Enrollment.Web.Infrastructure.ViewModels
 
         [Required]
         public string FirstName { get; set; }
-        [Required]
+
         public string MiddleName { get; set; }
         [Required]
         public string LastName { get; set; }
 
         [Required]
-        public AddressViewModel Address { get; set; }
+        public string Address { get; set; }
         public bool AddressSameAsParent { get; set; }
 
         [Required]

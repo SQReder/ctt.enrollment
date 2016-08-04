@@ -29,12 +29,7 @@ export class EnrolleeService extends Service.BaseService {
     }
 
     saveEnrollee(model: Enrollee): Observable<HttpResults.IGuidResult> {
-        function capitalizeFirstLetter(string: string): string {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
         const params = requestParams();
-        //params.set("model", JSON.stringify(model));
 
         for (let key in model) {
             if (!model.hasOwnProperty(key))
@@ -44,5 +39,13 @@ export class EnrolleeService extends Service.BaseService {
         }
 
         return this.observablePost<HttpResults.IGuidResult>("/Enrollee/Edit", params);
+    }
+
+    deleteEnrollee(id: string): Observable<HttpResults.IGenericResult> {
+        const params = requestParams();
+
+        params.set("id", id);
+
+        return this.observablePost<HttpResults.IGenericResult>("/Enrollee/Delete", params);
     }
 }
