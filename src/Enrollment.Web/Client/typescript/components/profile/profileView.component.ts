@@ -1,5 +1,5 @@
 ﻿import {Component, Input, Output, OnInit} from "@angular/core"
-import {ProfileService} from "../../shared/profile/profile.service";
+import {TrusteeService} from "../../shared/trustee/trustee.service";
 import {Profile} from "./profile.class";
 import {ProfileInfoComponent} from "./profileInfo.component";
 import * as HttpResults from "../../shared/responses/httpResults";
@@ -15,14 +15,14 @@ export class ProfileViewComponent implements OnInit {
     model: Profile;
 
     constructor(
-        private profileService: ProfileService
+        private trusteeService: TrusteeService
     ) {
         this.model = new Profile();
     }
 
     ngOnInit() {
-        this.profileService
-            .getCurrentUser()
-            .subscribe((result: HttpResults.ProfileInfoResult) => this.model.onProfileInfoLoaded(result));
+        this.trusteeService
+            .getCurrentTrustee()
+            .subscribe((result: HttpResults.ITrusteeInfoResult) => this.model.onProfileInfoLoaded(result));
     }
 }

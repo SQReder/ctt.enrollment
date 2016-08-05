@@ -1,10 +1,10 @@
-﻿export interface IProfileInfo {
+﻿export interface ITrusteeInfo {
     firstName: string;
     lastName: string;
     middleName: string;
     job: string;
     jobPosition: string;
-    phone: string;
+    phoneNumber: string;
     email: string;
     address: string;
 }

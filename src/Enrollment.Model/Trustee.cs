@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Enrollment.Model
 {
@@ -21,5 +22,9 @@ namespace Enrollment.Model
         public Address Address { get; set; }
 
         public virtual ICollection<Enrollee> Applicants { get; set; }
+
+        public Guid? OwnerID { get; set; }
+
+        public virtual ApplicationUser Owner { get; set; }
     }
 }

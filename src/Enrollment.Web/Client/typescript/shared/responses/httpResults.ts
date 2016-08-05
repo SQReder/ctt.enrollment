@@ -1,19 +1,27 @@
-﻿import {IProfileInfo as ProfileInfo} from "../profile/profileInfo.interface";
-import {IEnrollee}  from "../../components/enrollee/enrollee.class";
+﻿import {ITrusteeInfo} from "../profile/ITrusteeInfo.interface";
+import {IEnrollee, IAddress }  from "../../components/enrollee/enrollee.class";
 
-export interface GenericResult {
+export interface IGenericResult {
     succeeded: boolean;
     message: string;
 }
 
-export interface ProfileInfoResult extends GenericResult {
-    user: ProfileInfo
+export interface ITrusteeInfoResult extends IGenericResult {
+    trustee: ITrusteeInfo
 }
 
-export interface ListEnrolleeResult extends GenericResult {
+export interface IListEnrolleeResult extends IGenericResult {
     enrollees: IEnrollee[]
 }
 
-export interface GetEnrolleeResult extends GenericResult {
+export interface IGetEnrolleeResult extends IGenericResult {
     enrollee: IEnrollee
+}
+
+export interface ITrusteeAddressResult extends IGenericResult {
+    address: IAddress
+}
+
+export interface IGuidResult extends IGenericResult {
+    guid: string;
 }

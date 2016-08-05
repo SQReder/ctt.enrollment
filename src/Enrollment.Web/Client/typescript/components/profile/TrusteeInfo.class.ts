@@ -1,6 +1,6 @@
-﻿import {IProfileInfo} from "../../shared/profile/profileInfo.interface";
+﻿import {ITrusteeInfo} from "../../shared/profile/ITrusteeInfo.interface";
 
-export class ProfileInfo implements IProfileInfo {
+export class TrusteeInfo implements ITrusteeInfo {
     firstName: string;
     lastName: string;
     middleName: string;
@@ -8,7 +8,7 @@ export class ProfileInfo implements IProfileInfo {
     job: string;
     jobPosition: string;
 
-    phone: string;
+    phoneNumber: string;
     email: string;
     address: string;
 }

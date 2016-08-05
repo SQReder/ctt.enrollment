@@ -5,7 +5,7 @@ import {contentHeaders} from "../requests/headers.const";
 import {requestParams} from "../requests/params.method";
 
 @Injectable()
-export class BaseService {
+export abstract class BaseService {
     constructor(
         protected http: Http
     ) {        

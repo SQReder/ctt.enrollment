@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
 using Enrollment.Model;
-using Enrollment.Web.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enrollment.Web.Database
 {
-    public static class EnrollmentDbSeed
+    public static class ApplicationDbSeed
     {
-        public static void EnsureSeedData(this EnrollmentDbContext context)
+        public static void EnsureSeedData(this ApplicationDbContext context)
         {
             var addressGuid = new Guid("ff668380-3842-4b29-9672-5dc7e82d9901");
             if (!context.Addresses.Any())
@@ -41,7 +40,7 @@ namespace Enrollment.Web.Database
 
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new EnrollmentDbContext(serviceProvider.GetRequiredService<DbContextOptions<EnrollmentDbContext>>()))
+            using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
                 EnsureSeedData(context);
             }

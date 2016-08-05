@@ -15,7 +15,7 @@ export interface IEnrollee {
     firstName: string;
     middleName: string;
     lastName: string;
-    address: IAddress;
+    address: string;
     addressSameAsParent: boolean;
     studyPlaceTitle: string;
     studyGrade: string;
@@ -28,13 +28,13 @@ export class Enrollee implements IEnrollee {
     firstName: string;
     middleName: string;
     lastName: string;
-    address: IAddress;
+    address: string;
     addressSameAsParent: boolean;
     studyPlaceTitle: string;
     studyGrade: string;
     birthCertificateGuid: string; // optional
 
     constructor() {
-        this.address = new Address();
+        //this.address = new Address();
     }
 }

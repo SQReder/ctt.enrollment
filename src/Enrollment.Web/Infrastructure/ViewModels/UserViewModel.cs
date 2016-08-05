@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Enrollment.Web.Model;
+using Enrollment.Model;
 using Microsoft.AspNetCore.Identity;
 
 namespace Enrollment.Web.Infrastructure.ViewModels
@@ -23,9 +23,6 @@ namespace Enrollment.Web.Infrastructure.ViewModels
             var claims = await userManager.GetClaimsAsync(user);
             return new UserViewModel
             {
-                FirstName = user.FirstName,
-                MiddleName = user.MiddleName,
-                LastName = user.LastName,
                 Job = claims.FirstOrDefault(c => c.Type == "job")?.Value,
                 JobPosition = claims.FirstOrDefault(c => c.Type == "jobPosition")?.Value,
                 Email = user.Email,

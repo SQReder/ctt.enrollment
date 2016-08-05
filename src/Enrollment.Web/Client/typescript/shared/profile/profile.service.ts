@@ -5,23 +5,13 @@ import {Http, Headers} from "@angular/http";
 import {contentHeaders} from "../requests/headers.const";
 import {requestParams} from "../requests/params.method";
 import * as HttpResults from "../responses/httpResults";
+import {BaseService} from "../enrollee/BaseService";
 
 @Injectable()
-export class ProfileService {
+export class ProfileService extends BaseService {
     constructor(
-        private http: Http
-    ) {        
-    }    
-
-    getCurrentUser(): Observable<HttpResults.ProfileInfoResult> {
-        const headers = contentHeaders;
-        return Observable.create(observer => {
-            this.http
-                .get("/Profile/GetCurrentUser", { headers: headers })
-                .subscribe(responce => {
-                    observer.next(responce.json());
-                    observer.complete();
-                });
-        });
+        http: Http
+    ) {
+        super(http);
     }
 }

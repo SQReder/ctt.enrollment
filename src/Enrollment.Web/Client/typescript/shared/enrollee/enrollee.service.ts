@@ -16,22 +16,36 @@ export class EnrolleeService extends Service.BaseService {
         super(http);
     }
 
-    listEnrollee(): Observable<HttpResults.ListEnrolleeResult> {
+    listEnrollee(): Observable<HttpResults.IListEnrolleeResult> {
         return this.observableGet("/Enrollee/ListEnrollee");
     }
 
-    getEnrollee(id: string): Observable<HttpResults.GetEnrolleeResult> {
+    getEnrollee(id: string): Observable<HttpResults.IGetEnrolleeResult> {
         if (id == null) {
             id = "";
         }
 
-        return this.observableGet("/Enrollee/Get/" + id);
+        return this.observableGet <HttpResults.IGetEnrolleeResult>(`/Enrollee/Get/${id}`);
     }
 
-    saveEnrollee(model: Enrollee): void {
+    saveEnrollee(model: Enrollee): Observable<HttpResults.IGuidResult> {
         const params = requestParams();
-        params.set("model", JSON.stringify(model));
 
-        this.observablePost("/Enrollee/Edit", params);
+        for (let key in model) {
+            if (!model.hasOwnProperty(key))
+                continue;
+
+            params.set(key, model[key]);
+        }
+
+        return this.observablePost<HttpResults.IGuidResult>("/Enrollee/Edit", params);
+    }
+
+    deleteEnrollee(id: string): Observable<HttpResults.IGenericResult> {
+        const params = requestParams();
+
+        params.set("id", id);
+
+        return this.observablePost<HttpResults.IGenericResult>("/Enrollee/Delete", params);
     }
 }

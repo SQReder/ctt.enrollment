@@ -26,19 +26,37 @@ export class EnrolleeListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.load();
+    }
+
+    load() {
         this.enrolleeService
             .listEnrollee()
-            .subscribe((result: HttpResults.ListEnrolleeResult) => {
+            .subscribe((result: HttpResults.IListEnrolleeResult) => {
                 console.log(result);
                 this.model = result.enrollees;
             });
+        
     }
 
     createNew() {
-        this.router.navigate(["/Enrollee/Edit", {id: null}]);
+        this.router.navigate(["/Enrollee/Edit", {id: ""}]);
     }
 
     onRequestEdit(id: string) {
         this.router.navigate(["/Enrollee/Edit", { id: id }]);
+    }
+
+    onRequestRemove(id: string) {
+        const result = confirm("Delete enrollee?");
+
+        if (result) {
+            this.enrolleeService
+                .deleteEnrollee(id)
+                .subscribe((result: HttpResults.IGenericResult) => {
+                    console.log(result);
+                    this.load();
+                });
+        }
     }
 }

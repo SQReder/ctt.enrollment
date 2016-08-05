@@ -1,16 +1,17 @@
+using System;
 using Enrollment.DataAccess;
 using Enrollment.Model;
-using Enrollment.Web.Model;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Enrollment.Web.Database
 {
     [UsedImplicitly]
-    public class EnrollmentDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
-        public EnrollmentDbContext([NotNull] DbContextOptions<EnrollmentDbContext> options) : base(options)
+        public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
@@ -40,6 +41,11 @@ namespace Enrollment.Web.Database
                 .HasMany(x => x.Applicants)
                 .WithOne(x => x.Parent)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Trustee>()
+                .HasOne(x => x.Owner)
+                .WithOne(x => x.Trustee)
+                .HasForeignKey<Trustee>(x => x.OwnerID);
 
             modelBuilder.Entity<Enrollee>()
                 .HasOne(x => x.Address);
