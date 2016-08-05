@@ -71,4 +71,10 @@ export class EnrolleeEditComponent implements OnInit {
                 console.log(result);
             });
     }
+
+    addressSameAsParentChanged(value: any) {
+        if (value === true) {
+            this.model.address = this.trusteeAddress.raw;
+        }
+    }
 }

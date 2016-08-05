@@ -34,9 +34,6 @@ namespace Enrollment.Web.Controllers
         public IActionResult InfoLayout() => View();
 
         [HttpGet]
-        public IActionResult ChildListLayout() => View();
-
-        [HttpGet]
         public IActionResult ChildItemLayout() => View();
 
         [HttpGet]
