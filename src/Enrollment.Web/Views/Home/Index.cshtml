@@ -17,6 +17,8 @@
     <script src="~/lib/pace/pace.min.js"></script>
 </head>
 <body class="uk-height-1-1">
+    @Html?.AntiForgeryToken()
+
     <app-component>
         <div class="loading"></div>
     </app-component>

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Enrollment.DataAccess;
 using Enrollment.Model;
+using Enrollment.ServiceLayer;
 using Enrollment.Web.Database;
 using Enrollment.Web.Infrastructure.Exceptions;
 using Enrollment.Web.Infrastructure.Helpers;
@@ -23,16 +25,19 @@ namespace Enrollment.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _dbContext;
+        private readonly IRandomIdGenerator _randomIdGenerator;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ApplicationDbContext dbContext
+            ApplicationDbContext dbContext,
+            IRandomIdGenerator randomIdGenerator
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _dbContext = dbContext;
+            _randomIdGenerator = randomIdGenerator;
         }
 
         [HttpGet]
@@ -59,7 +64,7 @@ namespace Enrollment.Web.Controllers
                 var user = await _userManager.FindByNameAsync(username);
                 if (user == null)
                 {
-                    throw new NotFoundException();
+                    throw new NotFoundException("User not found");
                 }
                 var result =
                     await _signInManager.PasswordSignInAsync(username, password, rememberMe, lockoutOnFailure: false);
@@ -145,7 +150,22 @@ namespace Enrollment.Web.Controllers
 
                         var repository = _dbContext.Repository<Trustee>();
                         repository.Add(trustee);
-                        await _dbContext.SaveChangesAsync();
+
+                        // handle id collisions
+                        try
+                        {
+                            await _dbContext.SaveChangesAsync();
+                        }
+                        catch (Exception e)
+                        {
+                            var sqlException = e.GetBaseException() as SqlException;
+                            if (sqlException?.Number == 2627)
+                            {
+                                trustee.Id = Guid.NewGuid();
+                                trustee.AlternateId = _randomIdGenerator.Generate();
+                                await _dbContext.SaveChangesAsync();
+                            }
+                        }
 
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         registrationResult = new SuccessResult();
@@ -183,6 +203,7 @@ namespace Enrollment.Web.Controllers
                 MiddleName = model.MiddleName,
                 LastName = model.LastName,
                 Id = Guid.NewGuid(),
+                AlternateId = _randomIdGenerator.Generate(),
                 Email = model.Email,
                 Job = model.Job,
                 JobPosition = model.JobPosition,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Enrollment.Model;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace Enrollment.Web.Database
 {
     public static class ApplicationDbSeed
     {
-        public static void EnsureSeedData(this ApplicationDbContext context)
+        private static void EnsureSeedData(this ApplicationDbContext context)
         {
             var addressGuid = new Guid("ff668380-3842-4b29-9672-5dc7e82d9901");
             if (!context.Addresses.Any())
@@ -20,6 +21,7 @@ namespace Enrollment.Web.Database
                 });
                 context.SaveChanges();
             }
+
             if (!context.Enrollees.Any())
             {
                 context.Enrollees.Add(new Enrollee
@@ -33,6 +35,24 @@ namespace Enrollment.Web.Database
                     Address = context.Addresses.First(x => x.Id == addressGuid),
                     StudyGrade = "123?",
                 });
+
+                context.SaveChanges();
+            }
+
+            if (!context.UnityGroups.Any())
+            {
+                var unityGroup = new UnityGroup
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Конструкторское бюро",
+                    Unities = new List<Unity>
+                    {
+                        new Unity {Id = Guid.NewGuid(), Title = "Лего-конструирование и моделирование"},
+                        new Unity {Id = Guid.NewGuid(), Title = "Инженерное 3D-моделирование и конструирование"}
+                    }
+                };
+
+                context.UnityGroups.Add(unityGroup);
 
                 context.SaveChanges();
             }

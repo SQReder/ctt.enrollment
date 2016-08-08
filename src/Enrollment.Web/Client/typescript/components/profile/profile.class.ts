@@ -1,4 +1,4 @@
-﻿import {Enrollee} from "../enrollee/enrollee.class";
+﻿import {DeprecatedEnrollee as Enrollee} from "../enrollee/enrollee.class";
 import {TrusteeInfo} from "./TrusteeInfo.class";
 import * as HttpResults from "../../shared/responses/httpResults";
 

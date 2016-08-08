@@ -1,10 +1,10 @@
 ﻿import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core"
-import {Enrollee, Address } from "./enrollee.class";
+import {DeprecatedEnrollee as Enrollee, Address } from "./enrollee.class";
 import {RelationTypeStringPipe, RelationTypeEnum} from "./relationType.enum"
 
-import {EnrolleeService} from "../../shared/enrollee/enrollee.service";
-import {RouteParams, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
-import {TrusteeService} from "../../shared/trustee/trustee.service";
+import {DeprecatedEnrolleeService as EnrolleeService} from "../../shared/enrollee/enrollee.service";
+import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {DeprecatedTrusteeService as TrusteeService} from "../../shared/trustee/trustee.service";
 import {IGuidResult, ITrusteeAddressResult, IGetEnrolleeResult} from "../../shared/responses/httpResults"
 
 @Component({
@@ -35,7 +35,8 @@ export class EnrolleeEditComponent implements OnInit {
     constructor(
         private routeParams: RouteParams,
         private service: EnrolleeService,
-        private trusteeService: TrusteeService
+        private trusteeService: TrusteeService,
+        private router: Router
     ) {
     }
 
@@ -69,6 +70,7 @@ export class EnrolleeEditComponent implements OnInit {
         this.service.saveEnrollee(this.model)
             .subscribe((result: IGuidResult) => {
                 console.log(result);
+                this.router.navigateByUrl(`/enrollee/edit/${result.guid}`);
             });
     }
 

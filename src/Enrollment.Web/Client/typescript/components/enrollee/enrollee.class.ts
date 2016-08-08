@@ -22,7 +22,7 @@ export interface IEnrollee {
     birthCertificateGuid: string; // optional
 }
 
-export class Enrollee implements IEnrollee {
+export class DeprecatedEnrollee implements IEnrollee {
     id: string;
     relationType: RelationTypeEnum;
     firstName: string;

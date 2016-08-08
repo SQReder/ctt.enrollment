@@ -28,6 +28,34 @@ namespace Enrollment.Web.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("Enrollment.Model.Admission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AlternateId");
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<Guid?>("EnrolleeId");
+
+                    b.Property<Guid?>("ParentId");
+
+                    b.Property<Guid?>("UnityId");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("AlternateId");
+
+                    b.HasIndex("EnrolleeId");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("UnityId");
+
+                    b.ToTable("Admissions");
+                });
+
             modelBuilder.Entity("Enrollment.Model.Enrollee", b =>
                 {
                     b.Property<Guid>("Id")
@@ -36,6 +64,8 @@ namespace Enrollment.Web.Migrations
                     b.Property<Guid?>("AddressId");
 
                     b.Property<bool>("AddressSameAsParent");
+
+                    b.Property<int>("AlternateId");
 
                     b.Property<Guid>("BirthCertificateId");
 
@@ -55,6 +85,8 @@ namespace Enrollment.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("AlternateId");
+
                     b.HasIndex("AddressId");
 
                     b.HasIndex("ParentId");
@@ -68,6 +100,8 @@ namespace Enrollment.Web.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid?>("AddressId");
+
+                    b.Property<int>("AlternateId");
 
                     b.Property<string>("Email");
 
@@ -87,12 +121,44 @@ namespace Enrollment.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("AlternateId");
+
                     b.HasIndex("AddressId");
 
                     b.HasIndex("OwnerID")
                         .IsUnique();
 
                     b.ToTable("Trustees");
+                });
+
+            modelBuilder.Entity("Enrollment.Model.Unity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Title")
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<Guid?>("UnityGroupId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UnityGroupId");
+
+                    b.ToTable("Unities");
+                });
+
+            modelBuilder.Entity("Enrollment.Model.UnityGroup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Title")
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UnityGroups");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole<System.Guid>", b =>
@@ -265,6 +331,22 @@ namespace Enrollment.Web.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
+            modelBuilder.Entity("Enrollment.Model.Admission", b =>
+                {
+                    b.HasOne("Enrollment.Model.Enrollee", "Enrollee")
+                        .WithMany()
+                        .HasForeignKey("EnrolleeId");
+
+                    b.HasOne("Enrollment.Model.Trustee", "Parent")
+                        .WithMany("Admissions")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Enrollment.Model.Unity", "Unity")
+                        .WithMany()
+                        .HasForeignKey("UnityId");
+                });
+
             modelBuilder.Entity("Enrollment.Model.Enrollee", b =>
                 {
                     b.HasOne("Enrollment.Model.Address", "Address")
@@ -286,6 +368,13 @@ namespace Enrollment.Web.Migrations
                     b.HasOne("Enrollment.Model.ApplicationUser", "Owner")
                         .WithOne("Trustee")
                         .HasForeignKey("Enrollment.Model.Trustee", "OwnerID");
+                });
+
+            modelBuilder.Entity("Enrollment.Model.Unity", b =>
+                {
+                    b.HasOne("Enrollment.Model.UnityGroup", "UnityGroup")
+                        .WithMany("Unities")
+                        .HasForeignKey("UnityGroupId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<System.Guid>", b =>

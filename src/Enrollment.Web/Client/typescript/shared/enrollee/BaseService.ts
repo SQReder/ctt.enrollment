@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core"
 import {Observable} from "rxjs/Observable";
-import {Http, Headers} from "@angular/http";
+import {Http} from "@angular/http";
 import {contentHeaders} from "../requests/headers.const";
 import {requestParams} from "../requests/params.method";
 

@@ -11,10 +11,13 @@ import {AppComponent} from "./components/app/app.component";
 import {appInjector} from "./app.injector";
 import {AuthService} from "./shared/auth/auth.service";
 
-import {ProfileService} from "./shared/profile/profile.service";
-import {EnrolleeService} from "./shared/enrollee/enrollee.service";
+import {GuidGeneratorService} from "./shared/guidGenerator/guidGenerator.service";
+import {DeprecatedEnrolleeService} from "./shared/enrollee/enrollee.service";
 import {BaseService} from "./shared/enrollee/BaseService";
-import {TrusteeService} from "./shared/trustee/trustee.service";
+import {DeprecatedTrusteeService} from "./shared/trustee/trustee.service";
+import {UnityService} from "./shared/api/unity.service";
+import {TrusteeService} from "./shared/api/trustee.service";
+import {RandomIdGenerator} from "./shared/randomIdGenerator/randomIdGenerator.service";
 
 declare var appOptions: any;
 
@@ -23,13 +26,16 @@ bootstrap(
     [
         BaseService,
         AuthService, 
-        ProfileService,
+        DeprecatedTrusteeService,
+        DeprecatedEnrolleeService,
         TrusteeService,
-        EnrolleeService,
+        UnityService,
         ROUTER_PROVIDERS,
         HTTP_PROVIDERS,
         disableDeprecatedForms(),
-        provideForms()
+        provideForms(),
+        GuidGeneratorService,
+        provide(RandomIdGenerator, {useValue: new RandomIdGenerator(999999)})
     ]
 ).then((appRef: ComponentRef<AppComponent>) => {
     // store a reference to the injector

@@ -1,11 +1,14 @@
 ﻿using System;
 using AutoMapper;
 using Enrollment.Model;
+using Enrollment.ServiceLayer;
 using Enrollment.Web.Database;
 using Enrollment.Web.Infrastructure.ViewModels;
+using Microsoft.AspNet.Routing.Template;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,14 +60,16 @@ namespace Enrollment.Web
                 .AddMvc().AddJsonOptions(options =>
                 {
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
                 });
+
+            services.AddSingleton<IRandomIdGenerator, RandomIdGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole();
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
@@ -93,6 +98,22 @@ namespace Enrollment.Web
 
                 routes.MapRoute("AngularDeepLinkingRoute", "{*url}",
                     new { controller = "Home", action = "Index" });
+
+                ///*config.Routes.MapHttpRoute(
+                //        name: "Enrollments",
+                //        routeTemplate: "api/courses/{courseId}/students/{userName}",
+                //        defaults: new { controller = "Enrollments", userName = RouteParameter.Optional }
+                //        );
+                //        */
+                //routes.MapRoute(
+                //    name: "Unities",
+                //    template:"api/unityGroups/{unityGroupId}/unities/{unityId?}",
+                //    defaults: new { controller = "UnitiesController" },
+                //    constraints: new
+                //    {
+                //        unityGroupId = new GuidRouteConstraint(),
+                //        unityId = new GuidRouteConstraint()
+                //    });
             });
 
             ConfigureMapper();
@@ -111,8 +132,17 @@ namespace Enrollment.Web
                     .ForMember(
                         dest => dest.Address,
                         opts => opts.MapFrom(src => new Address { Raw = src.Address }));
+
+                config.CreateMap<UnityGroup, UnityGroupViewModel>();
+                config.CreateMap<UnityGroupViewModel, UnityGroup>();
+
+                config.CreateMap<Unity, UnityViewModel>();
+                config.CreateMap<UnityViewModel, Unity>();
+
                 config.CreateMap<Address, AddressViewModel>();
                 config.CreateMap<Trustee, TrusteeViewModel>();
+
+                config.CreateMap<Admission, AdmissionViewModel>();
             });
         }
     }

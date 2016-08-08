@@ -1,6 +1,6 @@
 ﻿import {Injectable, OnInit} from "@angular/core"
-import {EnrolleeService} from "../../shared/enrollee/enrollee.service";
-import {Enrollee} from "./enrollee.class";
+import {DeprecatedEnrolleeService as EnrolleeService} from "../../shared/enrollee/enrollee.service";
+import {DeprecatedEnrollee as Enrollee} from "./enrollee.class";
 import * as HttpResults from "../../shared/responses/httpResults";
 
 @Injectable()

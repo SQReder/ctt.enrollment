@@ -1,9 +1,9 @@
 ﻿import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core"
 import {CORE_DIRECTIVES} from "@angular/common"
 import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated"
-import {EnrolleeService} from "../../shared/enrollee/enrollee.service"
+import {DeprecatedEnrolleeService as EnrolleeService} from "../../shared/enrollee/enrollee.service"
 import {EnrolleeList} from "./enrolleeList.class";
-import {Enrollee} from "./enrollee.class";
+import {DeprecatedEnrollee as Enrollee} from "./enrollee.class";
 import {EnrolleeViewComponent} from "./enrolleeView.component";
 import * as HttpResults from "../../shared/responses/httpResults";
 

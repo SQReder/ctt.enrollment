@@ -3,7 +3,7 @@ import * as HttpResults from "../responses/httpResults"
 import {Observable} from "rxjs/Observable";
 import {BaseService} from "../enrollee/BaseService";
 
-export class TrusteeService extends BaseService {
+export class DeprecatedTrusteeService extends BaseService {
     constructor(
         http: Http
     ) {

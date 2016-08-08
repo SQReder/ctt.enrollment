@@ -1,10 +1,14 @@
 using System;
+using System.Collections.Generic;
+using Enrollment.Model.Contracts;
 
 namespace Enrollment.Model
 {
-    public class Enrollee
+    // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
+    public class Enrollee: IHaveIdentifier, IHaveAlternateIdentifier
     {
         public Guid Id { get; set; }
+        public int AlternateId { get; set; }
 
         public RelationTypeEnum RelationType { get; set; }
 
@@ -41,5 +45,7 @@ namespace Enrollment.Model
         /// Попечитель (родитель/родственник)
         /// </summary>
         public virtual Trustee Parent { get; set; }
+
+        public virtual ICollection<Admission> Admissions { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿import {Component, Input, Output, EventEmitter} from "@angular/core"
 import {RouteParams} from "@angular/router-deprecated"
-import {Enrollee} from "./enrollee.class";
-import {EnrolleeService} from "../../shared/enrollee/enrollee.service";
+import {DeprecatedEnrollee as Enrollee} from "./enrollee.class";
+import {DeprecatedEnrolleeService as EnrolleeService} from "../../shared/enrollee/enrollee.service";
 
 @Component({
     selector: "enroll-enrollee-view",

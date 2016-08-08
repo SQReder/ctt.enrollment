@@ -5,11 +5,11 @@ import {Http, Headers} from "@angular/http";
 import {contentHeaders} from "../requests/headers.const";
 import {requestParams} from "../requests/params.method";
 import * as HttpResults from "../responses/httpResults";
-import {Enrollee} from "../../components/enrollee/enrollee.class";
+import {DeprecatedEnrollee as Enrollee} from "../../components/enrollee/enrollee.class";
 import * as Service from "./BaseService";
 
 @Injectable()
-export class EnrolleeService extends Service.BaseService {
+export class DeprecatedEnrolleeService extends Service.BaseService {
     constructor(
         protected http: Http
     ) {

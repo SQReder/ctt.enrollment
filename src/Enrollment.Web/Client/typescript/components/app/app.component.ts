@@ -9,10 +9,11 @@ import {RegistrationComponent} from "../login/registration.component"
 import {HomeComponent} from "../home/home.component"
 import {ProfileComponent} from "../profile/profile.component"
 import {EnrolleesComponent} from "../enrollee/enrollees.component";
+import {AdmissionComponent} from "../admission/admission.component";
 
 @Component({
     selector: "app-component",
-    templateUrl: "/Home/AppLayout", 
+    templateUrl: "/views/components/app/component.html", 
     providers: [
     ],
     directives: [
@@ -53,6 +54,11 @@ import {EnrolleesComponent} from "../enrollee/enrollees.component";
         path: "/enrollee/...",
         name: "Enrollee",
         component: EnrolleesComponent
+    },
+    {
+        path: "/admission/...",
+        name: "Admission",
+        component: AdmissionComponent
     }
 ])
 export class AppComponent {
