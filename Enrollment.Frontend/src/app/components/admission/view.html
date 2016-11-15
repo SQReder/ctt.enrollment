@@ -1,0 +1,5 @@
+<div *ngIf="model" class="">
+  {{model.enrollee.lastName}} {{model.enrollee.firstName}} {{model.enrollee.middleName}}
+  <a class="uk-icon-justify uk-icon-remove uk-text-danger" (click)="onRemoveButtonClicked()"></a>
+  <a class="uk-icon-justify uk-icon-print uk-text-primary" (click)="onPrintButtonClicked()"></a>
+</div>

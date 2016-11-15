@@ -1,0 +1,11 @@
+<div *ngIf="isDataLoaded">
+  <div *ngFor="let item of enrollees">
+    <ctt-enrollee-short-info [model]="item"
+                          (requestRemove)="onRequestRemove($event)"
+                          (requestEdit)="onRequestEdit($event)">
+    </ctt-enrollee-short-info>
+  </div>
+  <a class="uk-button" (click)="createNew()">Новый ученик</a>
+</div>
+
+<div *ngIf="!isDataLoaded">Загрузка ...</div>

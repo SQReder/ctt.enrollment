@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "JetBrains.Annotations": "10.2.1",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "NETStandard.Library": "1.6.0"
+  },
+
+  "frameworks": {
+    "netstandard1.3": {
+    }
+  }
+}

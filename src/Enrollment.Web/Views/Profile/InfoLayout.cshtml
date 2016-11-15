@@ -1,9 +1,0 @@
-﻿<h2>Общая информация</h2>
-<div *ngIf="model">
-    <h3>{{model.firstName}} {{model.middleName}} {{model.lastName}}</h3>
-    <p>{{model.jobPosition}} в {{model.job}}</p>
-    <p>email: {{model.email}}</p>
-    <p>Тел: {{model.phoneNumber}}</p>
-    <p>Проживает: {{model.address.raw}}</p>
-</div>
-<div *ngIf="!model"><div class="loading"></div> Loading</div>

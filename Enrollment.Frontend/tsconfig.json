@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "sourceMap": true,
+    "sourceRoot": "src",
+    "target": "es5",
+    "lib": ["es6", "dom", "es2015.iterable"],
+    "types": [
+      "body-parser",
+      "compression",
+      "cookie-parser",
+      "express",
+      "express-serve-static-core",
+      "mime",
+      "node",
+      "serve-static",
+      "hammerjs",
+      "uuid"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": { "rewriteTsconfig": false }
+}

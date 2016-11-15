@@ -1,0 +1,10 @@
+﻿<h2>Общая информация</h2>
+<div *ngIf="isInitialized">
+    <h3>{{model.trustee.firstName}} {{model.trustee.middleName}} {{model.trustee.lastName}}</h3>
+    <p>{{model.trustee.jobPosition}} в {{model.trustee.job}}</p>
+    <p>email: {{model.trustee.email}}</p>
+    <p>Тел: {{model.trustee.phoneNumber}}</p>
+    <p>Проживает: {{model.trustee.address}}</p>
+</div>
+<div *ngIf="!isInitialized"><div class="loading"></div> Loading</div>
+<a (click)="onEditRequested()">Изменить</a>

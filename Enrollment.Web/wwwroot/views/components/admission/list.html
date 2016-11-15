@@ -1,0 +1,19 @@
+﻿<h2>Зявления на поступление</h2>
+
+<div *ngIf="model.isInitialized">
+    <div *ngIf="haveAnyAdmissions">
+        <div *ngFor="let a of model.admissions">
+            #{{a.alternateId}} - {{a.enrollee.firstName}} {{a.enrollee.lastName}} {{a.enrollee.middleName}}
+            в объединение "{{a.unity.title}}"
+            <!--<a class="uk-icon-justify uk-icon-edit" (click)="onEditButtonClicked()"></a>-->
+            <a class="uk-icon-justify uk-icon-small uk-icon-remove uk-text-danger" (click)="onRemoveRequested(a.id)"></a>
+            <a class="uk-icon-justify uk-icon-small uk-icon-download" href="/api/me/admissions/{{a.id}}/download" target="_blank"></a>
+        </div>
+    </div>
+    <div *ngIf="!haveAnyAdmissions">
+        Вы еще не создали заявлений - кнопка внизу
+    </div>
+</div>
+<div *ngIf="!model.isInitialized">Loading...</div>
+
+<a class="uk-button" (click)="createNew()">Create</a>

@@ -1,0 +1,24 @@
+<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+  <nav class="uk-navbar uk-margin-large-bottom">
+    <a [routerLink]="['/']" class="uk-navbar-brand uk-hidden-small">
+      <img src="/assets/img/logo.png" title="ЦТТиИТ" alt="ЦТТиИТ" style="height: 30px;"/>
+      <span class="uk-margin-small-left">ЦТТиИТ</span>
+    </a>
+    <ul class="uk-navbar-nav">
+      <li class="" *whenLoggedIn><a [routerLink]="['/']">В начало</a></li>
+      <li class="" *whenLoggedIn><a [routerLink]="['profile']">О родителе</a></li>
+      <li class="" *whenLoggedIn><a [routerLink]="['enrollee']">Дети</a></li>
+      <li class="" *whenLoggedIn><a [routerLink]="['admission']">Заявления</a></li>
+      <li *whenInRole="'Admin'"><a [routerLink]="['admin-panel']">Админка</a></li>
+    </ul>
+    <div class="uk-navbar-flip">
+      <ul class="uk-navbar-nav" ctt-login-panel>
+      </ul>
+    </div>
+  </nav>
+  <div class="uk-grid">
+    <div class="uk-width-1-1 uk-margin">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

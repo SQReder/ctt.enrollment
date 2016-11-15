@@ -1,0 +1,13 @@
+﻿<h2>Дети</h2>
+
+<div *ngIf="model">
+    <div *ngFor="let item of model">
+        <enroll-enrollee-view [model]="item"
+                              (requestRemove)="onRequestRemove($event)"
+                              (requestEdit)="onRequestEdit($event)">
+        </enroll-enrollee-view>
+    </div>
+
+    <a class="uk-button" (click)="createNew()">Add child</a>
+</div>
+<div *ngIf="!model">Loading...</div>

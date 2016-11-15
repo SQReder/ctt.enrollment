@@ -250,3 +250,4 @@ bower_components
 **/wwwroot/css/*
 **/typings/*
 /src/EnrollmentApplication/Client/typescript/shared
+*.ncrunchsolution

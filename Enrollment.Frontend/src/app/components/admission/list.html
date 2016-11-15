@@ -1,0 +1,9 @@
+<div *ngIf="initialized">
+  <div *ngFor="let admission of admissions">
+    <ctt-admission-view [model]="admission"
+                        (requestRemove)="onRequestRemove($event)">
+    </ctt-admission-view>
+  </div>
+  <a class="uk-button" (click)="createNew()">Новое заявление</a>
+</div>
+<div *ngIf="!initialized">Загрузка...</div>
