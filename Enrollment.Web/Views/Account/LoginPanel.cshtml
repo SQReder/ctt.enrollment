@@ -1,0 +1,3 @@
+﻿<li *isNotLoggedIn><a [routerLink]="['Login', { returnUrl: '/' }]">Войти</a></li>
+<li *isNotLoggedIn><a [routerLink]="['Registration']">Регистрация</a></li>
+<li *isLoggedIn><a (click)="logout()">Выйти</a></li>

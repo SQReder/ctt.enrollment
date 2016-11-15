@@ -1,0 +1,53 @@
+﻿<h2>Создание заявления о записи</h2>
+
+<div *ngIf="model.isInitialized">
+    <form class="uk-form" #enrolleeFrom="ngForm">
+        <fieldset>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="adm-enrollee">1. Выберите поступающего</label>
+                <div class="uk-form-controls uk-form-controls-text">
+                    <select id="adm-enrollee" required
+                            [(ngModel)]="model.enrolleeId" name="enrollee">
+                        <option value="-1" label="Выберите поступающего" disabled="disabled" selected="selected"></option>
+                        <option *ngFor="let e of model.enrollees" [value]="e.id">{{e.lastName}} {{e.firstName}} {{e.middleName}}</option>
+                    </select>
+                    <div *ngIf="model.selectedEnrollee != null">
+                        <div *ngIf="model.selectedEnrollee.birthCertificateGuid">Свидетельство о рождении загружено</div>
+                        <div *ngIf="!model.selectedEnrollee.birthCertificateGuid">Не забудьте загрузить свидетельство о рожении</div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="adm-unity-group">2. Направление обучения (группа курсов)</label>
+                <div class="uk-form-controls uk-form-controls-text">
+                    <select id="adm-unity-group" required
+                            [(ngModel)]="model.unityGroupId" name="unityGroup">
+                        <option value="-1" label="Выберите направление" disabled="disabled" selected="selected"></option>
+                        <option *ngFor="let g of model.unityGroups" [value]="g.id">{{g.title}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="adm-unity">3. Объединение</label>
+                <div class="uk-form-controls uk-form-controls-text">
+                    <select id="adm-unity" required
+                            [disabled]="!model.unities"
+                            [(ngModel)]="model.unityId" name="unity">
+                        <option value="-1" label="Выберите направление" disabled="disabled" selected="selected"></option>
+                        <option *ngFor="let u of model.unities" [value]="u.id">{{u.title}}</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        <div class="uk-form-row uk-margin-top">
+            <button type="submit" class="uk-button uk-button-primary"
+                    (click)="model.createAdmission()"
+                    [disabled]="!model.valid">
+                <span>Создать заявление</span>
+            </button>
+        </div>
+    </form>
+
+    <div style="font-family: monospace; word-break: break-all">{{diagnostic()}}</div>
+</div>
+<div *ngIf="!model.isInitialized">Loading...</div>

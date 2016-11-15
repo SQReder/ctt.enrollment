@@ -1,0 +1,110 @@
+﻿<h2>Edit</h2>
+
+<div *ngIf="initialized">
+    {{diagnostic}}
+    <form class="uk-form" #enrolleeFrom="ngForm">
+        <fieldset>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="enrollee-edit-relationshipDegree">Степень родства</label>
+                <div class="uk-form-controls uk-form-controls-text">
+                    <select id="enrollee-edit-relationshipDegree" required
+                            [(ngModel)]="model.relationType" name="relationType">
+                        <option value="-1" label="Выберите вариант" disabled="disabled"></option>
+                        <option *ngFor="let p of relations" [value]="p">{{p | relationType}}</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>ФИО</legend>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="enrollee-edit-lastName">Фамилия</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="enrollee-edit-lastName" placeholder=""
+                           name="lastName"
+                           [(ngModel)]="model.lastName"
+                           required/>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="enrollee-edit-firstName">Имя</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="enrollee-edit-firstName" placeholder=""
+                           name="firstName"
+                           [(ngModel)]="model.firstName"
+                           required/>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="enrollee-edit-middleName">Отчество</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="enrollee-edit-middleName" placeholder=""
+                           name="middleName"
+                           [(ngModel)]="model.middleName"/>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Адрес</legend>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="enrollee-edit-addressSameAsParent">
+                    <input type="checkbox" id="enrollee-edit-addressSameAsParent" placeholder=""
+                           name="addressSameAsParent"
+                           #addressSaveAsParent
+                           [(ngModel)]="model.addressSameAsParent"
+                           (change)="addressSameAsParentChanged(addressSaveAsParent.checked)"/>
+                    Адрес как у родителя
+                </label>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="enrollee-edit-address">Адрес</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="enrollee-edit-address" placeholder=""
+                           name="address"
+                           [(ngModel)]="model.address"
+                           [disabled]="model.addressSameAsParent"
+                           required/>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Место учебы</legend>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="enrollee-edit-school">Название ОУ</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="enrollee-edit-school" placeholder=""
+                           name="studyPlaceTitle"
+                           [(ngModel)]="model.studyPlaceTitle"
+                           required/>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="enrollee-edit-schoolGrade">Класс</label>
+                <div class="uk-form-controls">
+                    <input type="text" id="enrollee-edit-schoolGrade" placeholder=""
+                           name="studyGrade"
+                           [(ngModel)]="model.studyGrade"
+                           required=""/>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="enrollee-edit-birthCertificate">Свидетельство о рождении</label>
+                <div class="uk-form-controls">
+                    <input type="file" id="enrollee-edit-birthCertificate" placeholder=""
+                           disabled="disabled"/>
+                </div>
+            </div>
+        </fieldset>
+        <div class="uk-form-row uk-margin-top">
+            <button type="submit" class="uk-button uk-button-primary"
+                    (click)="doSave()"
+                    [disabled]="!enrolleeFrom.valid">
+                <span *ngIf="!model.id">Добавить</span>
+                <span *ngIf="model.id">Сохранить</span>
+            </button>
+        </div>
+    </form>
+</div>
+<div *ngIf="!initialized">Loading...</div>

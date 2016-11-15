@@ -1,0 +1,67 @@
+<div class="uk-grid uk-margin-large-top">
+  <div class="uk-width-medium-1-2 uk-push-1-4 uk- uk-width-small-1-1">
+    <div class="uk-panel uk-panel-box">
+      <form class="uk-form uk-form-stacked" (ngSubmit)="register()" #loginForm="ngForm">
+        <div class="uk-form-row">
+          <label for="username" class="uk-form-label">Имя пользователя</label>
+          <div class="uk-form-icon" style="display:block;">
+            <i *ngIf="!username.pristine" [ngClass]="{
+              'uk-icon-refresh uk-icon-spin': pendingUsernameCheck,
+              'uk-icon-check': !pendingUsernameCheck && !isUsernameUsed && model.isUsernameValid,
+              'uk-icon-close': !pendingUsernameCheck && isUsernameUsed || !model.isUsernameValid
+            }"></i>
+            <input class="uk-width-1-1 uk-form-large" type="text" placeholder="Username"
+                   id="username"
+                   name="username"
+                   [(ngModel)]="model.username"
+                   (keyup)="checkUsername()"
+                   #username="ngModel"
+                   required
+                   [ngClass]="{
+                  'uk-form-danger': (!username.pristine && !model.isUsernameValid),
+                  'uk-form-success': (!username.pristine && model.isUsernameValid)
+                }">
+          </div>
+          <div class="uk-alert uk-alert-warning"
+               *ngIf="!username.pristine && (!model.isUsernameValid || isUsernameUsed)">
+            <div *ngIf="isUsernameUsed">Имя пользователя уже занято</div>
+            <div *ngIf="!model.isUsernameLongEnough">Имя пользователя должно быть хотя бы из 5 символов</div>
+          </div>
+        </div>
+        <div class="uk-form-row">
+          <label for="password" class="uk-form-label">Пароль</label>
+          <div class="uk-form-icon" style="display:block">
+            <i  *ngIf="!username.pristine" [ngClass]="{
+              'uk-icon-check': model.isPasswordValid,
+              'uk-icon-close': !model.isPasswordValid
+            }"></i>
+            <input class="uk-width-1-1 uk-form-large" type="password" placeholder="Password"
+                   id="password"
+                   name="password"
+                   [(ngModel)]="model.password"
+                   #password="ngModel"
+                   required
+                   [ngClass]="{
+                  'uk-form-danger': (!password.pristine && !model.isPasswordValid),
+                  'uk-form-success': (!password.pristine && model.isPasswordValid)
+                }">
+          </div>
+          <div class="uk-alert uk-alert-warning" *ngIf="!password.pristine && !model.isPasswordValid">
+            Пароль должен удовлетворять следующим простым правилам:<br/>
+            <div *ngIf="!model.passwordHasDigits">Включать хотя бы одну цифру</div>
+            <div *ngIf="!model.passwordHasLetter">Включать хотя бы одну латинскую букву</div>
+            <div *ngIf="!model.passwordLongEnough">Быть не короче 8 символов</div>
+          </div>
+          <div class="uk-alert uk-alert-success" *ngIf="!password.pristine && model.isPasswordValid">
+            Пароль удовлетворяет минимальным требованиям
+          </div>
+        </div>
+        <div class="uk-form-row">
+          <button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large"
+                  [disabled]="!model.isModelValid && isUsernameUsed">Зарегистрироваться
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
